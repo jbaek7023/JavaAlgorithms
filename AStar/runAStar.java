@@ -1,11 +1,6 @@
 import java.util.Scanner;
 
-/**
- * Run the a star Algorithm.
- * 
- * @author jaeminbaek, Abhishek Deo
- * 
- */
+
 public class runAStar {
 
 	private static int[][] obstacleMap0 = {
@@ -29,7 +24,7 @@ public class runAStar {
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0 } };
-	// choice 1
+
 	private static int[][] obstacleMap1 = {
 			{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
 			{ 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0 },
@@ -51,21 +46,38 @@ public class runAStar {
 			{ 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 } };
+	private static int[][] obstacleMap2 = {
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0 },
+			{ 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0 },
+			{ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0 },
+			{ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0 },
+			{ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+			{ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+			{ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+			{ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 } };
 
 	private static int goalX = 19;
 	private static int goalY = 16;
 
-	/**
-	 * Run and find the path!
-	 * 
-	 * @param args
-	 */
+
 	public static void main(String[] args) {
 		while (true) {
 			Scanner scan = new Scanner(System.in);
 			Graph map = new Graph(20, 20, obstacleMap0);
 			System.out
-					.print("How many random blocks? (type 0, 1 for special maps; 2 for stop)");
+					.print("How many random blocks? (type 0, 1, 2 for special maps; 3 for stop)");
 			int rBlocks = scan.nextInt();
 			if (rBlocks == 0) {
 				map = new Graph(20, 20, obstacleMap0);
@@ -74,15 +86,19 @@ public class runAStar {
 				goalX = 0;
 				goalY = 13;
 			} else if (rBlocks == 2) {
+				map = new Graph(20, 20, obstacleMap2);
+				goalX = 10;
+				goalY = 6;
+			} else if (rBlocks == 3) {
 				System.out.println("Bye!");
-				break; // end the instructions
+				break;
 			} else {
 				map.getRandomMap(rBlocks);
 			}
 
 			HValue heuristic = new HValue();
 			AStarAlgorithm pathFinder = new AStarAlgorithm(map, heuristic);
-			// always start from 0,0
+
 			Object pathValid = pathFinder.astarAlgorithm(0, 0, goalX, goalY);
 
 			if (pathValid != null) {
